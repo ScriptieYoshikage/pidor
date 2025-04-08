@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>100PercentTomatoKechup — Портфолио</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #fff8f0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 4px solid #000000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 1rem;
+      z-index: 3; /* Make sure it's above other elements */
+    }
+
+    .container {
+      max-width: 700px;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      z-index: 2; /* Make sure it's above other elements */
+    }
+
+    h1 {
+      text-align: center;
+      color: #000000;
+      margin-bottom: 0.2rem;
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: normal;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    .boykisser {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Boykisser.svg/1655px-Boykisser.svg.png');
+      background-size: cover;
+      animation: fall 5s infinite linear;
+      cursor: pointer;
+      z-index: 1; /* Ensure boykissers are in the background */
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px);
+      }
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+
+    iframe {
+      margin-top: 20px;
+    }
+
+    .bouncing {
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(10vw); }
+      50% { transform: translateX(0); }
+      75% { transform: translateX(-10vw); }
+      100% { transform: translateX(0); }
+    }
+
+    .bounce-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://th.bing.com/th/id/OIP.piRzWtMCSbpX-WL21vFMSgAAAA?rs=1&pid=ImgDetMain" alt="Avatar" class="avatar" />
+  <div class="container">
+    <h1 id="username">100PercentTomatoKechup</h1>
+    <h2>или просто Кечуп 🍅</h2>
+    <p>Привет! Я — аниматор, и эксплоитер в ёблоксе.</p>
+    <p>С 2022 года занимаюсь анимацией через Moon Animator. Не ради геймдева, а ради кайфа.</p>
+    <p>Люблю Xeno и Annabypasser, чтобы хештеги работали, как надо. Также я знаю Bash, а вот Python только начал изучать — сейчас дружу с ChatGPT.</p>
+    <p>Прокачиваю Fedora, живу в трипл-буте и делаю жизнь чуть более томатной. Чак — мой пёс, друг и иногда соавтор приколов.</p>
+  </div>
+  <div class="footer">© 2025 100PercentTomatoKechup</div>
+
+  <iframe src="https://archive.org/embed/crazy-noisy-bizarre-town" width="500" height="60" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
+
+  <button class="bounce-button" onclick="startBouncing()">Включить отскок!</button>
+
+  <script>
+    // Воспроизведение песни
+    var iframe = document.querySelector('iframe');
+    iframe.src += '?autoplay=1'; // Включаем автозапуск
+
+    // Переменные для перетаскивания
+    let selectedBoykisser = null;
+    let offsetX, offsetY;
+
+    // Создание бойкиссеров
+    function createBoykisser() {
+      const boykisser = document.createElement('div');
+      boykisser.classList.add('boykisser');
+      document.body.appendChild(boykisser);
+
+      boykisser.style.left = Math.random() * window.innerWidth + 'px';
+      boykisser.style.animationDuration = (Math.random() * 3 + 3) + 's';
+
+      boykisser.addEventListener('mousedown', function(e) {
+        selectedBoykisser = boykisser;
+        offsetX = e.clientX - boykisser.getBoundingClientRect().left;
+        offsetY = e.clientY - boykisser.getBoundingClientRect().top;
+        
+        document.addEventListener('mousemove', dragBoykisser);
+        document.addEventListener('mouseup', releaseBoykisser);
+      });
+    }
+
+    function dragBoykisser(e) {
+      if (selectedBoykisser) {
+        selectedBoykisser.style.left = e.clientX - offsetX + 'px';
+        selectedBoykisser.style.top = e.clientY - offsetY + 'px';
+      }
+    }
+
+    function releaseBoykisser() {
+      if (selectedBoykisser) {
+        document.removeEventListener('mousemove', dragBoykisser);
+        document.removeEventListener('mouseup', releaseBoykisser);
+        selectedBoykisser = null;
+      }
+    }
+
+    setInterval(createBoykisser, 100);
+
+    // Функция для заставки с отскоком
+    function startBouncing() {
+      const elementsToBounce = document.querySelectorAll('#username, .avatar, .container');
+
+      elementsToBounce.forEach(el => {
+        el.classList.add('bouncing');
+      });
+    }
+  </script>
+</body>
+</html>
